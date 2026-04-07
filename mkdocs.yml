@@ -1,0 +1,42 @@
+site_name: Plataforma Analítica em Tempo Real para Mercado Financeiro
+site_description: Documentação completa do sistema de análise de mercado financeiro com recomendações automatizadas
+site_url: https://SEU-USUARIO.github.io/daytrade/
+
+theme:
+  name: material
+  language: pt-BR
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+
+nav:
+  - Início: index.md
+  - Visão Geral: visao-geral.md
+  - Arquitetura: arquitetura.md
+  - Requisitos: requisitos.md
+  - User Stories: user-stories.md
+  - Casos de Uso: casos-de-uso.md
+  - Diagramas: diagramas.md
+
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - attr_list
+  - md_in_html
+
+plugins:
+  - search
+  - mermaid2
