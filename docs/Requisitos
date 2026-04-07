@@ -15,3 +15,103 @@
 | **RF03** | O sistema deve armazenar, para cada ativo, no mínimo: ticker, nome, mercado, status e data de cadastro. |
 | **RF04** | O sistema deve impedir o cadastro duplicado de ticker para o mesmo mercado. |
 | **RF05** | O sistema deve permitir a listagem dos ativos monitorados com filtros por status e mercado. |
+
+### 1.2 Ingestão de Preços
+
+| ID | Descrição |
+|---|---|
+|**RF06** |O sistema deve receber dados de preço por meio de endpoint de API.|
+|**RF07**  |O sistema deve permitir ingestão unitária e em lote de preços.|
+|**RF08**  |O sistema deve validar os campos obrigatórios do preço antes do armazenamento.|
+|**RF09**  |O sistema deve armazenar, para cada preço, no mínimo: ticker, preço, volume, timestamp do evento, timestamp de ingestão e origem do dado.|
+|**RF10**  |O sistema deve rejeitar registros de preço com formato inválido, ticker inexistente ou valores inconsistentes.|
+|**RF11**  |O sistema deve registrar o histórico cronológico de preços por ativo.|
+|**RF12**  |O sistema deve permitir a consulta do histórico de preços por ativo e intervalo de tempo.|
+|**RF13**  |O sistema deve identificar preços desatualizados com base em uma janela de validade configurável.|
+|**RF14**  |O sistema deve registrar falhas de ingestão de preços para auditoria.|
+
+### 1.3 Ingestão de Notícias
+
+| ID | Descrição |
+|---|---|
+| **RF15** | O sistema deve receber notícias por meio de endpoint de API. |
+| **RF16** | O sistema deve permitir ingestão unitária e em lote de notícias. |
+| **RF17** | O sistema deve validar os campos obrigatórios da notícia antes do processamento. |
+| **RF18** | O sistema deve armazenar, para cada notícia, no mínimo: fonte, título, conteúdo, URL quando disponível, data de publicação, data de ingestão e ativo(s) relacionado(s). |
+| **RF19** | O sistema deve permitir associar uma notícia a um ou mais ativos. |
+| **RF20** | O sistema deve identificar notícias duplicadas ou substancialmente equivalentes, conforme regra configurada. |
+| **RF21** | O sistema deve registrar o status da notícia como pendente, processada ou com erro. |
+| **RF22** | O sistema deve permitir consulta de notícias por ativo, fonte e período. |
+| **RF23** | O sistema deve registrar falhas de ingestão e processamento de notícias para auditoria. |
+
+### 1.4 Análise de Notícias
+
+| ID | Descrição |
+|---|---|
+| **RF24** | O sistema deve processar automaticamente a notícia após sua ingestão válida. |
+| **RF25** | O sistema deve classificar o sentimento da notícia em positivo, negativo ou neutro. |
+| **RF26** | O sistema deve classificar a relevância da notícia em baixa, média ou alta. |
+| **RF27** | O sistema deve armazenar o resultado da análise de sentimento e relevância vinculado à notícia analisada. |
+| **RF28** | O sistema deve gerar uma justificativa resumida da classificação da notícia. |
+| **RF29** | O sistema deve registrar a versão do modelo, regra ou agente utilizado na análise. |
+| **RF30** | O sistema deve permitir o reprocessamento de notícias previamente armazenadas. |
+| **RF31** | O sistema deve disponibilizar os resultados da análise de notícias para o motor de decisão. |
+
+### 1.5 Análise Técnica de Mercado
+
+| ID | Descrição |
+|---|---|
+| **RF32** | O sistema deve calcular indicadores técnicos com base no histórico de preços do ativo. |
+| **RF33** | O sistema deve calcular, no mínimo, média móvel simples e tendência simplificada. |
+| **RF34** | O sistema deve validar se existe quantidade mínima de dados para cálculo dos indicadores. |
+| **RF35** | O sistema deve gerar um sinal técnico classificado como compra, venda ou neutro. |
+| **RF36** | O sistema deve armazenar os valores dos indicadores utilizados no cálculo. |
+| **RF37** | O sistema deve registrar a versão da estratégia ou regra técnica utilizada. |
+| **RF38** | O sistema deve permitir o reprocessamento da análise técnica quando houver mudança de parâmetros. |
+
+### 1.6 Motor de Decisão
+
+| ID | Descrição |
+|---|---|
+| **RF39** | O sistema deve combinar análise técnica e análise de notícias para emitir uma decisão por ativo. |
+| **RF40** | O sistema deve classificar a decisão final como buy, sell ou hold. |
+| **RF41** | O sistema deve atribuir um percentual de confiança à decisão. |
+| **RF42** | O sistema deve gerar uma justificativa textual da decisão, mencionando os fatores determinantes. |
+| **RF43** | O sistema deve registrar, para cada decisão, os insumos efetivamente utilizados no processamento. |
+| **RF44** | O sistema deve armazenar a versão do agente, modelo ou regra responsável pela decisão. |
+| **RF45** | O sistema deve permitir gerar decisão sob demanda por ticker. |
+| **RF46** | O sistema deve permitir geração automática periódica de decisões para ativos monitorados. |
+| **RF47** | O sistema deve registrar o histórico completo de decisões emitidas. |
+| **RF48** | O sistema deve permitir reprocessar uma decisão sem sobrescrever o histórico anterior. |
+| **RF49** | O sistema deve marcar decisões como atuais, históricas ou reprocessadas. |
+| **RF50** | O sistema deve impedir a emissão de decisão quando os dados mínimos exigidos não estiverem disponíveis. |
+
+### 1.7 Consulta e Exposição por API
+
+| ID | Descrição |
+|---|---|
+| **RF51** | O sistema deve expor endpoints REST para ingestão de preços, ingestão de notícias, consulta de ativos, consulta de preços, consulta de notícias e consulta de decisões. |
+| **RF52** | O sistema deve retornar os dados em formato JSON. |
+| **RF53** | O sistema deve retornar códigos HTTP compatíveis com sucesso, erro de validação, autenticação, autorização, recurso inexistente e erro interno. |
+| **RF54** | O sistema deve oferecer filtros por ticker, data, fonte, relevância, sentimento e status de processamento. |
+| **RF55** | O sistema deve oferecer paginação nas consultas de listas. |
+| **RF56** | O sistema deve permitir ordenação por data, confiança, relevância e preço. |
+| **RF57** | O sistema deve disponibilizar endpoint para consulta do histórico de decisões por ativo. |
+| **RF58** | O sistema deve disponibilizar endpoint para consulta da última decisão válida por ativo. |
+| **RF59** | O sistema deve disponibilizar endpoint de health check da plataforma. |
+
+### 1.8 Dashboard Web
+
+| ID | Descrição |
+|---|---|
+| **RF60** | O sistema deve exibir no dashboard a lista de ativos monitorados com seus dados mais recentes. |
+| **RF61** | O sistema deve exibir preço atual, variação, sinal técnico, sentimento predominante e decisão atual por ativo. |
+| **RF62** | O sistema deve exibir o nível de confiança e a justificativa da decisão. |
+| **RF63** | O sistema deve exibir o histórico de preços em formato gráfico. |
+| **RF64** | O sistema deve exibir a linha do tempo de notícias relacionadas ao ativo. |
+| **RF65** | O sistema deve permitir filtro por ticker, mercado, data, ação recomendada e nível de confiança. |
+| **RF66** | O sistema deve permitir a visualização detalhada de um ativo. |
+| **RF67** | O sistema deve sinalizar visualmente quando houver dados insuficientes ou desatualizados. |
+| **RF68** | O sistema deve atualizar os dados exibidos de forma periódica ou em tempo quase real. |
+| **RF69** | O sistema deve permitir ao usuário consultar decisões históricas e suas justificativas. |
+| **RF70** | O sistema deve permitir exportar consultas ou relatórios em formato estruturado, caso essa funcionalidade seja habilitada no escopo. |
