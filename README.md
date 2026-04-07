@@ -1,152 +1,79 @@
-1. Visão Geral do Projeto
-Este documento descreve a arquitetura, requisitos, componentes, agentes de IA, banco de dados, APIs e roadmap de desenvolvimento da plataforma analítica em tempo real para mercado financeiro, com emissão automática de recomendações de compra, venda ou manutenção de ativos.
+# Plataforma Analítica em Tempo Real para Mercado Financeiro
 
-2. Objetivos
-Monitorar cotações de ações em tempo real
+Plataforma para monitoramento de ativos financeiros em tempo quase real, análise automatizada de notícias e geração de recomendações de **compra**, **venda** ou **manutenção** com apoio de agentes analíticos.
 
-Coletar e analisar notícias financeiras
+## Visão Geral
 
-Processar dados com agentes de IA especializados
+Este projeto tem como objetivo integrar dados de mercado e notícias financeiras em uma única plataforma capaz de:
 
-Emitir parecer automático por ativo
+- monitorar preços de ativos em tempo quase real;
+- coletar e analisar notícias relacionadas aos ativos;
+- calcular sinais técnicos de mercado;
+- combinar diferentes análises para gerar decisões automatizadas;
+- registrar histórico completo das decisões emitidas;
+- exibir todas as informações em um dashboard web.
 
-Registrar histórico de decisões
+## Objetivos do Projeto
 
-Exibir informações em um dashboard web
+- Monitorar cotações de ativos em tempo quase real
+- Coletar e processar notícias financeiras
+- Aplicar agentes analíticos especializados
+- Emitir parecer automático por ativo
+- Registrar histórico de decisões
+- Disponibilizar API para integração
+- Exibir dados e recomendações em dashboard web e, futuramente, mobile
 
-3. Arquitetura da Solução
-A plataforma é composta por cinco camadas:
+---
 
-Ingestão de Dados
+## Arquitetura da Solução
 
-Armazenamento
+A solução foi concebida em camadas para garantir escalabilidade, modularidade e facilidade de evolução.
 
-Agentes de IA
+### Camadas principais
 
-API Backend
+1. **Ingestão de Dados**
+   - Recebimento de preços
+   - Recebimento de notícias
+   - Validação e normalização dos dados
 
-Dashboard Web
+2. **Armazenamento**
+   - Persistência de preços
+   - Persistência de notícias
+   - Persistência de decisões
+   - Rastreabilidade histórica
 
-3.1. Diagrama da Arquitetura
-(Inserir o diagrama Mermaid convertido em imagem no PDF)
+3. **Agentes Analíticos**
+   - Agente de Notícias
+   - Agente de Mercado
+   - Agente de Decisão
 
-4. Componentes do Sistema
-4.1. Backend (FastAPI – Python)
-Responsável por:
+4. **API Backend**
+   - Exposição de endpoints REST
+   - Orquestração dos agentes
+   - Controle de autenticação e acesso
+   - Fornecimento de dados ao frontend
 
-Expor endpoints REST
+5. **Dashboard Web**
+   - Visualização dos ativos
+   - Consulta de notícias
+   - Histórico de decisões
+   - Indicadores e gráficos
 
-Orquestrar agentes de IA
+---
 
-Registrar decisões
+## Diagrama Conceitual da Arquitetura
 
-Servir dados ao dashboard
+```mermaid
+flowchart TD
+    A[Fontes de Preço] --> B[Camada de Ingestão]
+    C[Fontes de Notícias] --> B
 
-4.2. Banco de Dados (PostgreSQL)
-Tabelas principais:
-
-prices
-
-news
-
-decisions
-
-4.3. Agentes de IA
-Agente de Notícias (NLP)
-Entrada: texto da notícia
-
-Saída: sentimento + relevância
-
-Versão inicial: regras simples
-
-Versão futura: modelo de linguagem treinado
-
-Agente de Mercado
-Entrada: últimos preços
-
-Saída: sinal técnico (compra/venda/neutro)
-
-Indicadores: SMA, tendência simples
-
-Agente de Decisão
-Entrada: sentimento + sinal técnico
-
-Saída: buy/sell/hold + confiança + justificativa
-
-5. Estrutura do Banco de Dados
-5.1. Tabela prices
-Campo	Tipo	Descrição
-id	int	PK
-ticker	string	Código do ativo
-price	float	Último preço
-volume	float	Volume negociado
-timestamp	datetime	Horário da captura
-
-5.2. Tabela news
-Campo	Tipo	Descrição
-id	int	PK
-source	string	Fonte
-title	string	Título
-content	text	Conteúdo
-ticker	string	Ativo
-sentiment	string	positivo/negativo/neutro
-relevance	string	baixa/média/alta
-created_at	datetime	Registro
-
-5.3. Tabela decisions
-Campo	Tipo	Descrição
-id	int	PK
-ticker	string	Ativo
-action	string	buy/sell/hold
-confidence	float	0–100%
-reason	text	Justificativa
-created_at	datetime	Registro
-
-6. API – Endpoints Principais
-6.1. POST /prices
-Registra um novo preço.
-
-6.2. POST /news
-Registra notícia e executa análise de sentimento.
-
-6.3. GET /decisions/{ticker}
-Gera decisão automática combinando:
-
-Últimos preços
-
-Última notícia
-
-Regras do agente de decisão
-
-7. Roadmap de Desenvolvimento
-Fase 1 – Backend + Banco
-Criar API FastAPI
-
-Criar tabelas
-
-Endpoints básicos
-
-Fase 2 – Agente de Notícias
-Implementar NLP simples
-
-Integrar ao endpoint /news
-
-Fase 3 – Agente de Mercado
-Implementar indicadores técnicos
-
-Integrar ao endpoint de decisão
-
-Fase 4 – Agente de Decisão
-Criar motor de decisão
-
-Registrar decisões
-
-Fase 5 – Ingestão Automática
-Coleta contínua de preços
-
-Coleta contínua de notícias
-
-Fase 6 – Dashboard Web
-Criar frontend
-
-Exibir dados e decisões
+    B --> D[Backend / API]
+    D --> E[(PostgreSQL)]
+    D --> F[Agente de Notícias]
+    D --> G[Agente de Mercado]
+    F --> H[Agente de Decisão]
+    G --> H
+    H --> E
+    D --> I[Dashboard Web]
+    D --> J[Aplicativo Mobile - Futuro]
