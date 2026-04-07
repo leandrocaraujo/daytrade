@@ -1,0 +1,20 @@
+flowchart LR
+    subgraph Ingestão
+        A1[Coleta de Preços<br>API/WebSocket] --> DB[(Banco de Dados<br>PostgreSQL/TimescaleDB)]
+        A2[Coleta de Notícias<br>APIs Financeiras] --> DB
+    end
+
+    subgraph Processamento
+        DB --> B1[Agente de Notícias<br>(NLP)]
+        DB --> B2[Agente de Mercado<br>(Indicadores Técnicos)]
+        B1 --> C[Agente de Decisão]
+        B2 --> C
+    end
+
+    subgraph API
+        C --> D[FastAPI<br>Endpoints REST]
+    end
+
+    subgraph Dashboard
+        D --> E[Frontend Web<br>(React/Next.js)]
+    end
