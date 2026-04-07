@@ -1,1 +1,17 @@
-aqui vão os requisitos do projeto
+# 📊 Elicitação de Requisitos
+
+## Sistema de Plataforma Analítica em Tempo Real para Mercado Financeiro
+
+---
+
+## 1. Requisitos Funcionais
+
+### 1.1 Gestão de Ativos Monitorados
+
+| ID | Descrição |
+|---|---|
+| **RF01** | O sistema deve permitir o cadastro de ativos financeiros a serem monitorados. |
+| **RF02** | O sistema deve permitir ativar, desativar e atualizar ativos monitorados. |
+| **RF03** | O sistema deve armazenar, para cada ativo, no mínimo: ticker, nome, mercado, status e data de cadastro. |
+| **RF04** | O sistema deve impedir o cadastro duplicado de ticker para o mesmo mercado. |
+| **RF05** | O sistema deve permitir a listagem dos ativos monitorados com filtros por status e mercado. |
