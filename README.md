@@ -86,12 +86,12 @@ A documentação completa do projeto está disponível em [GitHub Pages](https:/
 
 ### Seções da Documentação
 
-- [**Visão Geral**](https://SEU-USUARIO.github.io/daytrade/visao-geral/) - Objetivo e escopo do sistema
-- [**Arquitetura**](https://SEU-USUARIO.github.io/daytrade/arquitetura/) - Componentes e tecnologias
-- [**Requisitos**](https://SEU-USUARIO.github.io/daytrade/requisitos/) - Funcionais e não funcionais
-- [**User Stories**](https://SEU-USUARIO.github.io/daytrade/user-stories/) - Backlog do usuário
-- [**Casos de Uso**](https://SEU-USUARIO.github.io/daytrade/casos-de-uso/) - Interações detalhadas
-- [**Diagramas**](https://SEU-USUARIO.github.io/daytrade/diagramas/) - UML e arquitetura
+- [**Visão Geral**](https://audittmega.github.io/daytrade/visao-geral/) - Objetivo e escopo do sistema
+- [**Arquitetura**](https://audittmega.github.io/daytrade/arquitetura/) - Componentes e tecnologias
+- [**Requisitos**](https://audittmega.github.io/daytrade/requisitos/) - Funcionais e não funcionais
+- [**User Stories**](https://audittmega.github.io/daytrade/user-stories/) - Backlog do usuário
+- [**Casos de Uso**](https://audittmega.github.io/daytrade/casos-de-uso/) - Interações detalhadas
+- [**Diagramas**](https://audittmega.github.io/daytrade/diagramas/) - UML e arquitetura
 
 ### Configuração Local da Documentação
 
@@ -168,7 +168,7 @@ A documentação é automaticamente publicada no GitHub Pages a cada push na bra
    ```
 
 5. **Acesse a documentação**
-   - [GitHub Pages](https://SEU-USUARIO.github.io/daytrade/)
+   - [GitHub Pages](https://audittmega.github.io/daytrade/)
    - Ou localmente: `mkdocs serve`
 
 ---
@@ -200,5 +200,5 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## 📞 Contato
 
-- **Projeto**: [GitHub Issues](https://github.com/SEU-USUARIO/daytrade/issues)
-- **Documentação**: [GitHub Pages](https://SEU-USUARIO.github.io/daytrade/)
+- **Projeto**: [GitHub Issues](https://github.com/audittmega/daytrade/issues)
+- **Documentação**: [GitHub Pages](https://audittmega.github.io/daytrade/)
