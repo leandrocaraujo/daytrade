@@ -115,3 +115,127 @@
 | **RF68** | O sistema deve atualizar os dados exibidos de forma periódica ou em tempo quase real. |
 | **RF69** | O sistema deve permitir ao usuário consultar decisões históricas e suas justificativas. |
 | **RF70** | O sistema deve permitir exportar consultas ou relatórios em formato estruturado, caso essa funcionalidade seja habilitada no escopo. |
+
+### 1.9 Administração e Governança
+
+| ID | Descrição |
+|---|---|
+| **RF71** | O sistema deve permitir autenticação de usuários. |
+| **RF72** | O sistema deve permitir controle de acesso por perfil. |
+| **RF73** | O sistema deve permitir que administradores cadastrem e gerenciem ativos monitorados. |
+| **RF74** | O sistema deve permitir que administradores configurem parâmetros de análise, como janela temporal, pesos e limiares. |
+| **RF75** | O sistema deve registrar alterações de parâmetros com data, hora, usuário e valor anterior e novo valor. |
+| **RF76** | O sistema deve permitir que administradores reprocessarem notícias, análises técnicas e decisões. |
+| **RF77** | O sistema deve permitir visualização de logs operacionais e erros de processamento. |
+| **RF78** | O sistema deve registrar trilha de auditoria das ações administrativas. |
+
+## 2. Requisitos Não Funcionais
+
+### 2.1 Desempenho
+
+| ID | Descrição |
+|---|---|
+| **RNF01** | O sistema deve confirmar o recebimento de dados de ingestão em até 1 segundo, em condições normais de operação. |
+| **RNF02** | O sistema deve concluir a análise de uma notícia em até 5 segundos após a ingestão válida, em condições normais. |
+| **RNF03** | O sistema deve responder à consulta da última decisão de um ativo em até 2 segundos, em condições normais. |
+| **RNF04** | O dashboard deve refletir novas informações em até 5 segundos após o processamento, no cenário operacional previsto para a primeira versão. |
+
+### 2.2 Escalabilidade
+
+| ID | Descrição |
+|---|---|
+| **RNF05** | O sistema deve suportar crescimento do número de ativos monitorados sem necessidade de reestruturação arquitetural completa. |
+| **RNF06** | O sistema deve suportar processamento concorrente de preços, notícias e decisões. |
+| **RNF07** | O sistema deve permitir desacoplamento entre ingestão, processamento analítico e visualização. |
+
+### 2.3 Disponibilidade
+
+| ID | Descrição |
+|---|---|
+| **RNF08** | O sistema deve apresentar disponibilidade mínima de 99% no ambiente de produção. |
+| **RNF09** | O sistema deve continuar operando parcialmente mesmo diante de falha pontual em um dos módulos não críticos. |
+| **RNF10** | O sistema deve possuir mecanismo de recuperação em caso de falha temporária de integração externa. |
+
+### 2.4 Segurança
+
+| ID | Descrição |
+|---|---|
+| **RNF11** | O sistema deve exigir autenticação para acesso às funcionalidades protegidas. |
+| **RNF12** | O sistema deve restringir funcionalidades administrativas a usuários autorizados. |
+| **RNF13** | O sistema deve trafegar dados por conexão segura. |
+| **RNF14** | O sistema deve proteger a API contra acesso indevido, payload malicioso e tentativas de abuso. |
+| **RNF15** | O sistema deve registrar tentativas de autenticação inválida e falhas de autorização. |
+
+### 2.5 Integridade e Confiabilidade
+
+| ID | Descrição |
+|---|---|
+| **RNF16** | O sistema deve garantir integridade dos dados persistidos. |
+| **RNF17** | O sistema deve garantir rastreabilidade entre dado de entrada, processamento e decisão emitida. |
+| **RNF18** | O sistema não deve emitir decisão a partir de dados inválidos, corrompidos ou fora da janela de validade configurada. |
+| **RNF19** | O sistema deve manter consistência entre versões de regras, notícias processadas, análise técnica e decisão gerada. |
+
+### 2.6 Auditabilidade
+
+| ID | Descrição |
+|---|---|
+| **RNF20** | Toda decisão deve ser auditável. |
+| **RNF21** | O sistema deve manter histórico imutável das decisões emitidas. |
+| **RNF22** | O sistema deve armazenar informações suficientes para reconstrução do contexto de uma decisão. |
+| **RNF23** | Alterações em parâmetros críticos devem ficar registradas para fins de auditoria. |
+
+### 2.7 Manutenibilidade
+
+| ID | Descrição |
+|---|---|
+| **RNF24** | O sistema deve ser desenvolvido de forma modular. |
+| **RNF25** | O sistema deve permitir evolução dos agentes de IA sem necessidade de reescrever o sistema completo. |
+| **RNF26** | O sistema deve permitir inclusão futura de novos indicadores técnicos, novos classificadores e novas fontes de dados. |
+| **RNF27** | O sistema deve possuir versionamento de API. |
+
+### 2.8 Usabilidade
+
+| ID | Descrição |
+|---|---|
+| **RNF28** | O dashboard deve ser responsivo e de fácil compreensão. |
+| **RNF29** | O sistema deve apresentar estados visuais claros para sucesso, erro, carregamento e indisponibilidade de dados. |
+| **RNF30** | O sistema deve destacar visualmente recomendações críticas e dados desatualizados. |
+
+### 2.9 Observabilidade e Operação
+
+| ID | Descrição |
+|---|---|
+| **RNF31** | O sistema deve registrar logs estruturados de ingestão, processamento e falhas. |
+| **RNF32** | O sistema deve disponibilizar métricas operacionais mínimas de saúde, latência e volume processado. |
+| **RNF33** | O sistema deve permitir monitoramento do status dos módulos principais. |
+| **RNF34** | O sistema deve possuir rotina de backup do banco de dados e estratégia de restauração. |
+
+## 3. Regras de Negócio
+
+| ID | Descrição |
+|---|---|
+| **RN01** | Uma decisão somente poderá ser emitida se existir ao menos um preço válido e recente para o ativo. |
+| **RN02** | Caso não haja dados históricos mínimos para análise técnica, o sistema deverá emitir hold ou estado equivalente de insuficiência de dados, conforme parametrização adotada. |
+| **RN03** | Caso não exista notícia válida dentro da janela de recência configurada, a decisão poderá ser emitida com base apenas na análise técnica. |
+| **RN04** | Notícias de alta relevância devem possuir maior peso no motor de decisão do que notícias de média e baixa relevância. |
+| **RN05** | Quando análise técnica e análise de notícias forem convergentes, a confiança da decisão deve ser maior. |
+| **RN06** | Quando análise técnica e análise de notícias forem conflitantes, a confiança da decisão deve ser reduzida. |
+| **RN07** | Notícias classificadas como duplicadas não devem amplificar artificialmente o peso informacional do ativo. |
+| **RN08** | Toda decisão deve conter ação, confiança, justificativa, data/hora e referência à versão da regra ou modelo utilizado. |
+| **RN09** | Reprocessamentos não devem apagar decisões anteriores; devem gerar novo registro histórico. |
+| **RN10** | Decisões exibidas ao usuário devem ser marcadas como inválidas ou desatualizadas quando baseadas em dados fora da janela de validade. |
+| **RN11** | O sistema não deve executar ordens de compra ou venda no mercado; sua função é apenas analítica e recomendatória. |
+| **RN12** | O sistema deve apresentar aviso de que a recomendação emitida é automatizada e não substitui avaliação humana ou recomendação financeira regulada. |
+
+## 4. Requisitos de Dados
+
+| ID | Descrição |
+|---|---|
+| **RD01** | O sistema deve persistir os dados de preços com granularidade temporal compatível com a frequência de ingestão. |
+| **RD02** | O sistema deve persistir as notícias em formato bruto e também em formato enriquecido pela análise. |
+| **RD03** | O sistema deve persistir as decisões juntamente com os identificadores dos insumos usados em sua geração. |
+| **RD04** | O sistema deve armazenar timestamps em padrão consistente e preferencialmente em UTC. |
+| **RD05** | O sistema deve manter versionamento lógico dos modelos, regras e parâmetros de decisão. |
+| **RD06** | O sistema deve possibilitar indexação eficiente para consultas por ticker, data e status. |
+| **RD07** | O sistema deve impedir perda de rastreabilidade entre preço, notícia, análise e decisão. |
+| **RD08** | O sistema deve permitir retenção histórica compatível com análises futuras e auditorias. |
