@@ -77,21 +77,20 @@ flowchart TD
     H --> E
     D --> I[Dashboard Web]
     D --> J[Aplicativo Mobile - Futuro]
-
----
+```
 
 ## 📚 Documentação
 
-A documentação completa do projeto está disponível em [GitHub Pages](https://SEU-USUARIO.github.io/daytrade/).
+A documentação completa do projeto está disponível em [GitHub Pages](https://leandrocaraujo.github.io/daytrade/).
 
 ### Seções da Documentação
 
-- [**Visão Geral**](https://audittmega.github.io/daytrade/visao-geral/) - Objetivo e escopo do sistema
-- [**Arquitetura**](https://audittmega.github.io/daytrade/arquitetura/) - Componentes e tecnologias
-- [**Requisitos**](https://audittmega.github.io/daytrade/requisitos/) - Funcionais e não funcionais
-- [**User Stories**](https://audittmega.github.io/daytrade/user-stories/) - Backlog do usuário
-- [**Casos de Uso**](https://audittmega.github.io/daytrade/casos-de-uso/) - Interações detalhadas
-- [**Diagramas**](https://audittmega.github.io/daytrade/diagramas/) - UML e arquitetura
+- [**Visão Geral**](https://leandrocaraujo.github.io/daytrade/visao-geral/) - Objetivo e escopo do sistema
+- [**Arquitetura**](https://leandrocaraujo.github.io/daytrade/arquitetura/) - Componentes e tecnologias
+- [**Requisitos**](https://leandrocaraujo.github.io/daytrade/requisitos/) - Funcionais e não funcionais
+- [**User Stories**](https://leandrocaraujo.github.io/daytrade/user-stories/) - Backlog do usuário
+- [**Casos de Uso**](https://leandrocaraujo.github.io/daytrade/casos-de-uso/) - Interações detalhadas
+- [**Diagramas**](https://leandrocaraujo.github.io/daytrade/diagramas/) - UML e arquitetura
 
 ### Configuração Local da Documentação
 
