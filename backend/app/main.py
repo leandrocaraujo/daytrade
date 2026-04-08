@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from backend.app.routes import auth, assets
 
 app = FastAPI(
     title="Plataforma Analítica Financeira",
@@ -15,6 +16,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Incluir rotas
+app.include_router(auth.router)
+app.include_router(assets.router)
+
 @app.get("/")
 def read_root():
     return {"message": "Bem-vindo à Plataforma Analítica Financeira"}
@@ -22,30 +27,3 @@ def read_root():
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
-
-@app.post("/api/assets")
-def create_asset(ticker: str, name: str, market: str):
-    return {
-        "ticker": ticker,
-        "name": name,
-        "market": market,
-        "message": "Ativo cadastrado com sucesso"
-    }
-
-@app.post("/api/prices")
-def ingest_price(ticker: str, price: float, volume: int, timestamp: str):
-    return {
-        "ticker": ticker,
-        "price": price,
-        "volume": volume,
-        "timestamp": timestamp,
-        "message": "Preço ingerido com sucesso"
-    }
-
-@app.get("/api/decision/{ticker}")
-def get_decision(ticker: str):
-    return {
-        "ticker": ticker,
-        "decision": "HOLD",
-        "reason": "Análise técnica em processamento"
-    }
