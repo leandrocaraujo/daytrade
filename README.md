@@ -167,7 +167,7 @@ A documentação é automaticamente publicada no GitHub Pages a cada push na bra
    ```
 
 5. **Acesse a documentação**
-   - [GitHub Pages](https://audittmega.github.io/daytrade/)
+   - [GitHub Pages](https://leandrocaraujo.github.io/daytrade/)
    - Ou localmente: `mkdocs serve`
 
 ---
@@ -199,5 +199,5 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## 📞 Contato
 
-- **Projeto**: [GitHub Issues](https://github.com/audittmega/daytrade/issues)
-- **Documentação**: [GitHub Pages](https://audittmega.github.io/daytrade/)
+- **Projeto**: [GitHub Issues](https://github.com/leandrocaraujo/daytrade/issues)
+- **Documentação**: [GitHub Pages](https://leandrocaraujo.github.io/daytrade/)
