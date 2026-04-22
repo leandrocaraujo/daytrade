@@ -1,4 +1,5 @@
-from fastapi import APIRouter
+from datetime import datetime
+from fastapi import APIRouter, HTTPException, Query
 from core.models import AssetCreate, PriceCreate
 from services.price_service import PriceService
 
@@ -82,4 +83,49 @@ async def get_prices(ticker: str, limit: int = 100):
         "ticker": ticker,
         "count": len(prices),
         "prices": prices[-limit:]
+    }
+
+
+@router.get("/prices/live/{ticker}")
+async def get_live_price(
+    ticker: str,
+    persist: bool = Query(
+        default=True,
+        description="Quando true, salva o preço buscado no histórico em memória.",
+    ),
+):
+    """Busca preço em provedor real e opcionalmente persiste no histórico."""
+    if ticker not in assets_db:
+        raise HTTPException(status_code=404, detail="Ativo não encontrado")
+
+    asset = assets_db[ticker]
+
+    try:
+        live_quote = await PriceService.fetch_live_price(
+            ticker=ticker,
+            market=asset["market"],
+        )
+    except Exception as exc:
+        raise HTTPException(
+            status_code=502,
+            detail=f"Falha ao obter preço em tempo real: {str(exc)}",
+        ) from exc
+
+    if persist:
+        prices_db[ticker].append(
+            {
+                "price": live_quote["price"],
+                "volume": live_quote["volume"],
+                "timestamp": datetime.utcnow().isoformat(),
+            }
+        )
+
+    price_list = [p["price"] for p in prices_db[ticker]]
+    analysis = PriceService.analyze_price(ticker, price_list) if price_list else None
+
+    return {
+        "message": "Preço em tempo real obtido com sucesso",
+        "quote": live_quote,
+        "persisted": persist,
+        "analysis": analysis,
     }
