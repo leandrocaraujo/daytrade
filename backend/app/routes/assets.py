@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from backend.core.models import AssetCreate, PriceCreate
-from backend.services.price_service import PriceService
+from core.models import AssetCreate, PriceCreate
+from services.price_service import PriceService
 
 router = APIRouter(prefix="/api", tags=["assets"])
 

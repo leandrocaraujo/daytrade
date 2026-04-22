@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.app.routes import auth, assets
+from app.routes import auth, assets
 
 app = FastAPI(
     title="Plataforma Analítica Financeira",

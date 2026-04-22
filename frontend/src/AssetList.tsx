@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
@@ -10,11 +10,7 @@ export default function AssetList({ token, refresh }) {
   const [decision, setDecision] = useState(null);
   const [prices, setPrices] = useState([]);
 
-  useEffect(() => {
-    fetchAssets();
-  }, [refresh]);
-
-  const fetchAssets = async () => {
+  const fetchAssets = useCallback(async () => {
     setLoading(true);
     try {
       const response = await axios.get(`${API_URL}/api/assets`, {
@@ -26,7 +22,11 @@ export default function AssetList({ token, refresh }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
+
+  useEffect(() => {
+    fetchAssets();
+  }, [fetchAssets, refresh]);
 
   const handleSelectAsset = async (asset) => {
     setSelectedAsset(asset);

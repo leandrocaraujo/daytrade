@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Login from './Login';
-import AssetForm from './AssetForm';
-import AssetList from './AssetList';
+import Login from './Login.tsx';
+import AssetForm from './AssetForm.tsx';
+import AssetList from './AssetList.tsx';
 
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));

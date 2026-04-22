@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthCredentials
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from datetime import timedelta
-from backend.core.security import (
+from core.security import (
     create_access_token,
     decode_token,
     get_password_hash,
@@ -44,7 +44,7 @@ async def login(email: str, password: str):
     return {"access_token": access_token, "token_type": "bearer"}
 
 @router.get("/me")
-async def get_current_user(credentials: HTTPAuthCredentials = Depends(security)):
+async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
     """Retorna informações do usuário atual"""
     token = credentials.credentials
     token_data = decode_token(token)
