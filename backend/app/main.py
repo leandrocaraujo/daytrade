@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import auth, assets
+from app.routes import auth, assets, news
 
 app = FastAPI(
     title="Plataforma Analítica Financeira",
@@ -19,6 +19,7 @@ app.add_middleware(
 # Incluir rotas
 app.include_router(auth.router)
 app.include_router(assets.router)
+app.include_router(news.router)
 
 @app.get("/")
 def read_root():

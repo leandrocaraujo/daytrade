@@ -17,3 +17,12 @@ class Decision(BaseModel):
     decision: str
     reason: str
     timestamp: datetime
+
+
+class NewsItem(BaseModel):
+    ticker: str
+    title: str
+    url: str
+    published_at: datetime
+    source: str
+    sentiment: str
