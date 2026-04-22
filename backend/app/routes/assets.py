@@ -64,7 +64,34 @@ async def get_decision(ticker: str):
     
     price_list = [p["price"] for p in prices_db[ticker]]
     analysis = PriceService.analyze_price(ticker, price_list)
-    
+
+    # Import local para evitar acoplamento circular no carregamento dos módulos de rota.
+    from app.routes.news import news_db
+
+    news_records = news_db.get(ticker, [])
+    positive_count = sum(1 for item in news_records if item.get("sentiment") == "POSITIVE")
+    negative_count = sum(1 for item in news_records if item.get("sentiment") == "NEGATIVE")
+    neutral_count = sum(1 for item in news_records if item.get("sentiment") == "NEUTRAL")
+    sentiment_score = positive_count - negative_count
+
+    combined_decision = PriceService.combine_market_and_news_signal(
+        market_decision=analysis["decision"],
+        sentiment_score=sentiment_score,
+    )
+
+    analysis["market_decision"] = analysis["decision"]
+    analysis["decision"] = combined_decision
+    analysis["news_sentiment"] = {
+        "count": len(news_records),
+        "positive": positive_count,
+        "negative": negative_count,
+        "neutral": neutral_count,
+        "score": sentiment_score,
+    }
+    analysis["decision_reason"] = (
+        "Decisão combinada entre sinal técnico e sentimento de notícias"
+    )
+
     return analysis
 
 @router.get("/assets")

@@ -42,6 +42,32 @@ class PriceService:
         }
 
     @staticmethod
+    def combine_market_and_news_signal(market_decision: str, sentiment_score: int) -> str:
+        """
+        Combina decisão técnica com sentimento agregado de notícias.
+        sentiment_score:
+        - positivo -> favorece BUY
+        - negativo -> favorece SELL
+        - zero -> neutro
+        """
+        if market_decision == "BUY":
+            if sentiment_score < -1:
+                return "HOLD"
+            return "BUY"
+
+        if market_decision == "SELL":
+            if sentiment_score > 1:
+                return "HOLD"
+            return "SELL"
+
+        # market_decision == HOLD
+        if sentiment_score >= 2:
+            return "BUY"
+        if sentiment_score <= -2:
+            return "SELL"
+        return "HOLD"
+
+    @staticmethod
     def _format_symbol_for_provider(ticker: str, market: str, provider: str) -> str:
         """Normaliza símbolo por provedor."""
         normalized_ticker = ticker.strip().upper()
